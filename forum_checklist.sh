@@ -123,6 +123,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo "'${SUBITEM}' Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
 	echo "${SUBITEM} uso de disco: ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
 	echo "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes."
+	echo ""
 	echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 
 	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
@@ -148,17 +149,4 @@ fi
 
 # Validação do usuário
 validate_user "$USER"
-
-echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
-		    
-COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
-for SERVICE in $COMMON_SERVICES ; do
-		if systemctl is-active "$SERVICE" >/dev/null 2>&1;  then
-			status="Ativo"
-		else
-			status="Inativo - Comunique imediatemente um analista N2!"
-		fi
-		echo "Serviço: $SERVICE - Status: $status"
-done
-echo ""
 
