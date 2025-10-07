@@ -141,7 +141,8 @@ echo -e "${SUBITEM} Validando instalação do site builder..."
 check_email() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}E-mail${NC}"
-echo -e "${SUBITEM} Verificando caixas de correio e cotas..."
+echo -e "${SUBITEM} Listando contas de e-mail do usuário..."
+uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}'
 # ...
 }
 
