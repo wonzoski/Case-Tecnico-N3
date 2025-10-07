@@ -30,7 +30,8 @@ NC='\033[0m'
 echo "=== Verificações iniciais ==="
 echo "Sistema operacional $(cat /etc/redhat-release)"
 echo "A partição atual do usuário é ... numero atual de inodes em ... com limite ..."
-echo -e"Ip atual deste usuário é ...\n"
+echo "Ip atual deste usuário é ..."
+echo ""
 echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 		    
 COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
