@@ -167,7 +167,7 @@ check_dominios() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios${NC}"
 echo -e "${SUBITEM} Verificando a validade da zona DNS..."
-echo -e "$()"
+echo -e "${DOMS}"
 echo -e "${SUBITEM} Verificando nameservers..."
 # ...
 }
