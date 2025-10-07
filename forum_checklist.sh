@@ -104,7 +104,7 @@ if [[ -z "$USER" ]]; then
 fi
 
 # Verifica se o usuário existe no userdomains (CORRIGIDO)
-if awk '{print $2}' /etc/userdomains | grep -qw "$user"; then
+if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo "✅ Usuário '$USER' validado com sucesso"
 	return 0
 else
