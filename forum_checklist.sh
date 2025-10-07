@@ -112,13 +112,15 @@ fi
 
 # Verifica se o usuário existe no trueuserdomains
 if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
+	# Captura informações de quota (filtra linhas que iniciam com /dev, ignorando espaços)
 	INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}' | tail -n 1)
 	read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
 	USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}")
 	LIMIT_GB=$(awk "BEGIN {printf \"%.2f\", $LIMIT/1048576}")
+
 	echo ""
 	echo "✅ Usuário '$USER' válido"
-	echo "Partição atual do usuário: ${PART}"
+	echo "Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $4}')"
 	echo "Com uso de disco de ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
 	echo "Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes."
 	echo ""
@@ -139,8 +141,6 @@ validate_user "$USER"
 echo ""
 echo "=== Verificações iniciais ==="
 echo "Sistema operacional $(cat /etc/redhat-release)"
-echo "A partição atual do usuário ${USER} é  numero atual de inodes em ... com limite ..."
-echo "Ip atual deste usuário é ..."
 echo ""
 echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 		    
