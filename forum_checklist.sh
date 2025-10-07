@@ -28,9 +28,5 @@ echo "Ip atual deste usuário é ..."
 
 COMMON_SERVICES=(httpd mysqld cpanel pure-ftp sshd exim dovecot)
 for s in "${COMMON_SERVICES[@]}"; do
-	if command_exists systemctl; then
-		echo "Status do serviço: $s" "systemctl is-active $s && systemctl status $s --no-pager --lines=5 || systemctl status $s --no-pager --lines=5 || true"
-	else
-		echo "Status do serviço (sysv): $s" "service $s status 2>&1 || true"
-	fi
+	echo "Status do serviço: $s" $(systemctl is-active $s)
 done
