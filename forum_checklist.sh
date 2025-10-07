@@ -38,6 +38,8 @@ MESERRO="${RED}[X]${NC}${BOLD}"
 MESINFO="${GREEN}[✓]${NC}${BOLD}" 
 MESINST="${YELLOW}[!]${NC}${BOLD}" 
 MESWARN="${PURPLE}[?]${NC}${BOLD}"
+PONTUACAO="${BLUE} • ${NC}${BOLD}"
+
 SUBITEM="${BLUE} ► ${NC}${BOLD}"
 
 # Função de ajuda
@@ -142,7 +144,7 @@ check_email() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}E-mail${NC}"
 echo -e "${SUBITEM} Listando contas de e-mail do usuário..."
-uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}'
+echo -e "${PONTUACAO} uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}'"
 # ...
 }
 
