@@ -109,13 +109,13 @@ echo ""
 echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 		    
 COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
-for service in $COMMON_SERVICES ; do
-		if systemctl is-active "$service" >/dev/null 2>&1;  then
+for SERVICE in $COMMON_SERVICES ; do
+		if systemctl is-active "$SERVICE" >/dev/null 2>&1;  then
 			status="Ativo"
 		else
-			status="${MESERRO}" "Inativo - Comunique imediatemente um analista N2!"
+			status="Inativo - Comunique imediatemente um analista N2!"
 		fi
-		echo "Serviço: $service - Status: $status"
+		echo "Serviço: $SERVICE - Status: $status"
 done
 echo ""
 
