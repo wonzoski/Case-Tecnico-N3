@@ -41,7 +41,7 @@ for service in $COMMON_SERVICES ; do
 		else
 			status="Inativo"
 		fi
-		echo "Serviço: $service - Status? $status"
+		echo "Serviço: $service - Status: $status"
 done
 echo ""
 
