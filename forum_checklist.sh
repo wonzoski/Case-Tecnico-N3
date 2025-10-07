@@ -21,12 +21,18 @@
 ###################################################
 
 unset USER
-
+i
 # DEFINE CORES
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
+
+##CONSTANTS
+MESERRO="${RED}[X]${NC}${BOLD}"
+MESINFO="${GREEN}[✓]${NC}${BOLD}" 
+MESINST="${YELLOW}[!]${NC}${BOLD}" 
+MESWARN="${PURPLE}[?]${NC}${BOLD}"
 
 # Função de ajuda
 show_help() {
@@ -60,9 +66,9 @@ shift
 # Verifica se ainda há argumentos após a fila
 if [ $# -eq 0 ]; then
 	echo ""
-	show_help
 	echo "Erro: É necessário especificar um domínio após o usuário"
 	echo ""
+	show_help
 	exit 1
 fi
 
@@ -95,7 +101,7 @@ case $1 in
 esac
 
 echo ""
-echo "${YELLOW}=== Verificações iniciais ==="
+echo "=== Verificações iniciais ==="
 echo "Sistema operacional $(cat /etc/redhat-release)"
 echo "A partição atual do usuário é ... numero atual de inodes em ... com limite ..."
 echo "Ip atual deste usuário é ..."
@@ -107,7 +113,7 @@ for service in $COMMON_SERVICES ; do
 		if systemctl is-active "$service" >/dev/null 2>&1;  then
 			status="Ativo"
 		else
-			status="Inativo - Comunique imediatemente um analista N2!"
+			status="${MESERRO}" "Inativo - Comunique imediatemente um analista N2!"
 		fi
 		echo "Serviço: $service - Status: $status"
 done
