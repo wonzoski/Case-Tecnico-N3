@@ -27,6 +27,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # VARIÁVEIS LOCAIS
+echo ""
 echo "=== Verificações iniciais ==="
 echo "Sistema operacional $(cat /etc/redhat-release)"
 echo "A partição atual do usuário é ... numero atual de inodes em ... com limite ..."
