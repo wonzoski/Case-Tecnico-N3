@@ -120,9 +120,9 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 
 	echo ""
 	echo "✅ Usuário '$USER' válido"
-	echo "${SUBITEM} Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
+	echo "'${SUBITEM}' Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
 	echo "${SUBITEM} uso de disco: ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
-	echo "${SUBITEM}" "Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes."
+	echo "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes."
 	echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 
 	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
