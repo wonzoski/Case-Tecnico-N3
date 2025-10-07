@@ -74,36 +74,7 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
-# Processa os parâmetros por setor
-case $1 in
-	--comp|--compartilhados)
-	   fila="compartilhados"
-	   ;;
-	--const|--construtores)
-	   fila="construtores"
-	   ;;
-	--mail|--email)
-	   fila="email"
-	   ;;
-	--esp|--especializado)
-	   fila="especializado"
-	   ;;
-	--dom|--dominios)
-	   fila="dominios"
-	   ;;
-	-h|--help)
-	   show_help
-	   exit 0
-	   ;;
- *)
-	echo "Erro: Parâmetro '$1' inválido"
-	show_help
-	exit 1
-	;;
-esac
-
 validate_user() {
-
 # Verifica se o parâmetro não está vazio
 if [[ -z "$USER" ]]; then
 	echo "❌ Erro: Nome de usuário não pode estar vazio"
@@ -148,8 +119,74 @@ fi
 }
 
 # Validação do usuário
-validate_user "$USER"
+#validate_user "$USER"
 
+# Função principal para cada setor
+check_compartilhados() {
+echo ""
+echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios Compartilhados${NC}"
+echo -e "${SUBITEM} Verificando limites de e-mails..."
+# (comandos específicos aqui)
+echo -e "${SUBITEM} Verificando pacotes de hospedagem..."
+# ...
+}
 
+check_construtores() {
+echo ""
+echo -e "${MESINFO} Iniciando checklist para ${CYAN}Construtores${NC}"
+echo -e "${SUBITEM} Validando instalação do site builder..."
+# ...
+}
 
+check_email() {
+echo ""
+echo -e "${MESINFO} Iniciando checklist para ${CYAN}E-mail${NC}"
+echo -e "${SUBITEM} Verificando caixas de correio e cotas..."
+# ...
+}
 
+check_especializado() {
+echo ""
+echo -e "${MESINFO} Iniciando checklist para ${CYAN}Servidores Especializados${NC}"
+echo -e "${SUBITEM} Validando recursos dedicados..."
+# ...
+}
+
+check_dominios() {
+echo ""
+echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios${NC}"
+echo -e "${SUBITEM} Verificando DNS zone, nameservers, etc..."
+# ...
+}
+
+case $1 in
+	--comp|--compartilhados)
+		fila="compartilhados"
+		validate_user "$USER" && check_compartilhados
+		;;
+	--const|--construtores)
+		fila="construtores"
+		validate_user "$USER" && check_construtores
+		;;
+	--mail|--email)
+		fila="email"
+		validate_user "$USER" && check_email
+		;;
+	--esp|--especializado)
+		fila="especializado"
+		validate_user "$USER" && check_especializado
+		;;
+	--dom|--dominios)
+		fila="dominios"
+		validate_user "$USER" && check_dominios
+		;;
+	-h|--help)
+		show_help
+		exit 0
+		;;
+	*)
+		echo -e "${MESERRO} Parâmetro '$1' inválido"
+		show_help
+		exit 1
+		;;
+esac
