@@ -98,24 +98,24 @@ esac
 
 validate_user() {
 # Verifica se o parâmetro não está vazio
-if [[ -z "$user" ]]; then
+if [[ -z "$USER" ]]; then
 	echo "❌ Erro: Nome de usuário não pode estar vazio"
 	exit 1
 fi
 
 # Verifica se o usuário existe no userdomains (CORRIGIDO)
 if awk '{print $2}' /etc/userdomains | grep -qw "$user"; then
-	echo "✅ Usuário '$user' validado com sucesso"
+	echo "✅ Usuário '$USER' validado com sucesso"
 	return 0
 else
-	echo "❌ Erro: Usuário '$user' não encontrado no sistema"
+	echo "❌ Erro: Usuário '$USER' não encontrado no sistema"
 	echo "   Verifique se o nome de usuário está correto"
 	exit 1
 fi
 }
 
 # Validação do usuário
-validate_user "$user"
+validate_user "$USER"
 
 
 
