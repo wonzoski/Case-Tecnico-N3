@@ -28,7 +28,7 @@ NC='\033[0m'
 
 # VARIÁVEIS LOCAIS
 echo "## Verificações iniciais ##"
-echo "Sistema operacional $(cat /etc/redhat-release}"
+echo "Sistema operacional $(cat /etc/redhat-release)"
 echo "A partição atual do usuário é ... numero atual de inodes em ... com limite ..."
 echo "Ip atual deste usuário é ..."
 echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
