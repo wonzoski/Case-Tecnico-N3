@@ -33,7 +33,7 @@ show_help() {
 	echo ""
 	echo "Uso: <usuario> [OPÇÃO]"
 	echo ""
-	echo "Usuário: Nome ou ID do atendente"
+	echo "Usuário: Usuário cPanel"
 	echo ""
 	echo "Opções:"
 	echo "  --comp, --compartilhados  Checklist para domínio Compartilhados"
@@ -57,10 +57,12 @@ fi
 USER="$1"
 shift
 
-# Verifica se ainda há argumentos após o usuário
+# Verifica se ainda há argumentos após a fila
 if [ $# -eq 0 ]; then
-	echo "Erro: É necessário especificar um domínio após o usuário"
+	echo ""
 	show_help
+	echo "Erro: É necessário especificar um domínio após o usuário"
+	echo ""
 	exit 1
 fi
 
