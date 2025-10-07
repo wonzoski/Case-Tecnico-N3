@@ -20,11 +20,74 @@
 #
 ###################################################
 
+unset USER
+
 # DEFINE CORES
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
+
+# Função de ajuda
+show_help() {
+	echo "Uso: $0 USUARIO [OPÇÃO]"
+	echo ""
+	echo "Usuário: Nome ou ID do atendente"
+	echo ""
+	echo "Opções:"
+	echo "  --comp, --compartilhados  Checklist para domínio Compartilhados"
+	echo "  --const, --construtores   Checklist para domínio Construtores"
+	echo "  --mail, --email           Checklist para domínio E-mail"
+	echo "  --esp, --especializado    Checklist para domínio Especializado"
+	echo "  --dom, --dominios         Checklist para domínio Domínios"
+	echo "  -h, --help                Mostra esta ajuda"
+	echo ""
+}
+
+# Verifica se não há argumentos
+if [ $# -eq 0 ]; then
+	echo "Erro: É necessário especificar um usuário e domínio"
+	show_help
+	exit 1
+fi
+
+USER="$1"
+shift
+
+# Verifica se ainda há argumentos após o usuário
+if [ $# -eq 0 ]; then
+	echo "Erro: É necessário especificar um domínio após o usuário"
+	show_help
+	exit 1
+fi
+
+# Processa os parâmetros por setor
+case $1 in
+	--comp|--compartilhados)
+	   domain="compartilhados"
+	   ;;
+	--const|--construtores)
+	   domain="construtores"
+	   ;;
+	--mail|--email)
+	   domain="email"
+	   ;;
+	--esp|--especializado)
+	   domain="especializado"
+	   ;;
+	--dom|--dominios)
+	   domain="dominios"
+	   ;;
+	-h|--help)
+	   show_help
+	   exit 0
+	   ;;
+ *)
+	echo "Erro: Parâmetro '$1' inválido"
+	show_help
+	exit 1
+	;;
+esac
 
 # VARIÁVEIS LOCAIS
 echo ""
@@ -40,7 +103,7 @@ for service in $COMMON_SERVICES ; do
 		if systemctl is-active "$service" >/dev/null 2>&1;  then
 			status="Ativo"
 		else
-			status="Inativo"
+			status="Inativo - Comunique imediatemente um analista N2!"
 		fi
 		echo "Serviço: $service - Status: $status"
 done
