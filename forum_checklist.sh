@@ -40,12 +40,12 @@ show_help() {
 	echo "Uso: <usuario> [OPÇÃO]"
 	echo ""
 	echo "Opções:"
-	echo "  --comp, --compartilhados  Checklist para domínio Compartilhados"
-	echo "  --const, --construtores   Checklist para domínio Construtores"
-	echo "  --mail, --email           Checklist para domínio E-mail"
-	echo "  --esp, --especializado    Checklist para domínio Especializado"
-	echo "  --dom, --dominios         Checklist para domínio Domínios"
-	echo "  -h, --help                Mostra esta ajuda"
+	echo "  --comp|--compartilhados  Checklist para domínio Compartilhados"
+	echo "  --const|--construtores   Checklist para domínio Construtores"
+	echo "  --mail|--email           Checklist para domínio E-mail"
+	echo "  --esp|--especializado    Checklist para domínio Especializado"
+	echo "  --dom|--dominios         Checklist para domínio Domínios"
+	echo "  -h|--help                Mostra esta ajuda"
 	echo ""
 }
 
@@ -53,7 +53,6 @@ show_help() {
 if [ $# -eq 0 ]; then
 	echo ""
 	echo "Erro: É necessário especificar um usuário e opção"
-	echo ""
 	show_help
 	exit 1
 fi
@@ -64,8 +63,7 @@ shift
 # Verifica se ainda há argumentos após a fila
 if [ $# -eq 0 ]; then
 	echo ""
-	echo "Erro: É necessário especificar um domínio após o usuário"
-	echo ""
+	echo "Erro: É necessário especificar uma opção após o usuário"
 	show_help
 	exit 1
 fi
@@ -99,27 +97,25 @@ case $1 in
 esac
 
 validate_user() {
-local user=$1
-	
 # Verifica se o parâmetro não está vazio
 if [[ -z "$user" ]]; then
 	echo "❌ Erro: Nome de usuário não pode estar vazio"
 	exit 1
 fi
-											
-# Verifica se o usuário existe no trueuserdomains
-if grep -q "^[^:]*:$user$" "/etc/trueuserdomains"; then
+
+# Verifica se o usuário existe no userdomains (CORRIGIDO)
+if awk '{print $2}' /etc/userdomains | grep -qw "$user"; then
 	echo "✅ Usuário '$user' validado com sucesso"
 	return 0
 else
 	echo "❌ Erro: Usuário '$user' não encontrado no sistema"
+	echo "   Verifique se o nome de usuário está correto"
 	exit 1
 fi
 }
 
-
-
-
+# Validação do usuário
+validate_user "$user"
 
 
 
