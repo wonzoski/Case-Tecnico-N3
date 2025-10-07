@@ -64,7 +64,7 @@ shift
 # Verifica se ainda há argumentos após a fila
 if [ $# -eq 0 ]; then
 	echo ""
-	echo "Erro: É necessário especificar uma opção após o usuário"
+	echo "Erro: É necessário especificar um domínio após o usuário"
 	echo ""
 	show_help
 	exit 1
@@ -73,19 +73,19 @@ fi
 # Processa os parâmetros por setor
 case $1 in
 	--comp|--compartilhados)
-	   domain="compartilhados"
+	   fila="compartilhados"
 	   ;;
 	--const|--construtores)
-	   domain="construtores"
+	   fila="construtores"
 	   ;;
 	--mail|--email)
-	   domain="email"
+	   fila="email"
 	   ;;
 	--esp|--especializado)
-	   domain="especializado"
+	   fila="especializado"
 	   ;;
 	--dom|--dominios)
-	   domain="dominios"
+	   fila="dominios"
 	   ;;
 	-h|--help)
 	   show_help
@@ -97,6 +97,51 @@ case $1 in
 	exit 1
 	;;
 esac
+
+validate_user() {
+local user=$1
+	
+# Verifica se o parâmetro não está vazio
+if [[ -z "$user" ]]; then
+	echo "❌ Erro: Nome de usuário não pode estar vazio"
+	exit 1
+fi
+											
+# Verifica se o usuário existe no trueuserdomains
+if grep -q "^[^:]*:$user$" "/etc/trueuserdomains"; then
+	echo "✅ Usuário '$user' validado com sucesso"
+	return 0
+else
+	echo "❌ Erro: Usuário '$user' não encontrado no sistema"
+	exit 1
+fi
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 echo ""
 echo "=== Verificações iniciais ==="
