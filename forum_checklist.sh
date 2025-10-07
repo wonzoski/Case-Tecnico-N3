@@ -104,7 +104,7 @@ esac
 
 validate_user() {
 
-INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}')
+INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}' | tail -n 1)
 
 read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
 
@@ -140,6 +140,7 @@ validate_user "$USER"
 echo ""
 echo "=== Verificações iniciais ==="
 echo "Sistema operacional $(cat /etc/redhat-release)"
+echo "A partição atual do usuário ${USER} é  numero atual de inodes em ... com limite ..."
 echo "Ip atual deste usuário é ..."
 echo ""
 echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
