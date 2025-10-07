@@ -103,16 +103,25 @@ case $1 in
 esac
 
 validate_user() {
+
+INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}')
+
+read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
+
+USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}")
+LIMIT_GB=$(awk "BEGIN {printf \"%.2f\", $LIMIT/1048576}")
+
 # Verifica se o parâmetro não está vazio
 if [[ -z "$USER" ]]; then
 	echo "❌ Erro: Nome de usuário não pode estar vazio"
 	exit 1
 fi
 
-# Verifica se o usuário existe no userdomains
+# Verifica se o usuário existe no trueuserdomains
 if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo ""
 	echo "✅ Usuário '$USER' válido"
+	echo "A partição atual do usuário ${USER} é ${PART}, com uso de disco de ${USED_GB} GB (consumo atual) e limite de ${LIMIT_GB} GB (limite de disco atual), utilizando ${FILES} inodes (consumo atual de inodes) com limite de ${FLIMIT} inodes."
 	echo ""
 	return 0
 else
@@ -122,15 +131,6 @@ else
 	echo ""
 	exit 1
 fi
-
-INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}')
-
-read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
-
-USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}")
-LIMIT_GB=$(awk "BEGIN {printf \"%.2f\", $LIMIT/1048576}")
-
-echo "A partição atual do usuário ${USER} é ${PART}, com uso de disco de ${USED_GB} GB (consumo atual) e limite de ${LIMIT_GB} GB (limite de disco atual), utilizando ${FILES} inodes (consumo atual de inodes) com limite de ${FLIMIT} inodes."
 
 }
 
