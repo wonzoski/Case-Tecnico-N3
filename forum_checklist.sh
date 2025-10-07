@@ -104,13 +104,6 @@ esac
 
 validate_user() {
 
-INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}' | tail -n 1)
-
-read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
-
-USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}")
-LIMIT_GB=$(awk "BEGIN {printf \"%.2f\", $LIMIT/1048576}")
-
 # Verifica se o parâmetro não está vazio
 if [[ -z "$USER" ]]; then
 	echo "❌ Erro: Nome de usuário não pode estar vazio"
@@ -119,6 +112,10 @@ fi
 
 # Verifica se o usuário existe no trueuserdomains
 if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
+	INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}' | tail -n 1)
+	read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
+	USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}")
+	LIMIT_GB=$(awk "BEGIN {printf \"%.2f\", $LIMIT/1048576}")
 	echo ""
 	echo "✅ Usuário '$USER' válido"
 	echo "Partição atual do usuário: ${PART}"
