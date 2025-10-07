@@ -30,6 +30,7 @@ NC='\033[0m'
 
 # Função de ajuda
 show_help() {
+	echo ""
 	echo "Uso: <usuario> [OPÇÃO]"
 	echo ""
 	echo "Usuário: Nome ou ID do atendente"
@@ -46,7 +47,9 @@ show_help() {
 
 # Verifica se não há argumentos
 if [ $# -eq 0 ]; then
+	echo ""
 	echo "Erro: É necessário especificar um usuário e domínio"
+	echo ""
 	show_help
 	exit 1
 fi
