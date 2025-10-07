@@ -102,7 +102,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
 	for SERVICE in $COMMON_SERVICES ; do
 		if systemctl is-active "$SERVICE" >/dev/null 2>&1;  then
-			status="Ativo"
+			status="${MESINFO} Ativo"
 		else
 			status="Inativo - Comunique imediatemente um analista N2!"
 		fi
