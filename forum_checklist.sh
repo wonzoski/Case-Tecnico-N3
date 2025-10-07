@@ -144,7 +144,7 @@ check_email() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}E-mail${NC}"
 echo -e "${SUBITEM} Listando contas de e-mail do usuário..."
-echo -e "${PONTUACAO} $(uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}')"
+echo -e "$($PONTUACAO uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}')\n"
 # ...
 }
 
@@ -158,7 +158,9 @@ echo -e "${SUBITEM} Validando recursos dedicados..."
 check_dominios() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios${NC}"
-echo -e "${SUBITEM} Verificando DNS zone, nameservers, etc..."
+echo -e "${SUBITEM} Verificando a validade da zona DNS..."
+
+echo -e "${SUBITEM} Verificando nameservers..."
 # ...
 }
 
