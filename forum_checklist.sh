@@ -27,10 +27,10 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # VARIÁVEIS LOCAIS
-echo "## Verificações iniciais ##"
+echo "=== Verificações iniciais ==="
 echo "Sistema operacional $(cat /etc/redhat-release)"
 echo "A partição atual do usuário é ... numero atual de inodes em ... com limite ..."
-echo "Ip atual deste usuário é ..."
+echo -e"Ip atual deste usuário é ...\n"
 echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 		    
 COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
