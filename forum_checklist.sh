@@ -30,7 +30,7 @@ NC='\033[0m'
 
 # Função de ajuda
 show_help() {
-	echo "Uso: $0 USUARIO [OPÇÃO]"
+	echo "Uso: <usuario> [OPÇÃO]"
 	echo ""
 	echo "Usuário: Nome ou ID do atendente"
 	echo ""
