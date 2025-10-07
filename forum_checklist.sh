@@ -22,7 +22,7 @@
 
 unset USER
 
-# DEFINE CORES
+##DEFINE CORES
 BOLD='\033[1m'
 RED='\033[1;31m'  
 GREEN='\033[0;92m'
@@ -39,8 +39,10 @@ MESINFO="${GREEN}[✓]${NC}${BOLD}"
 MESINST="${YELLOW}[!]${NC}${BOLD}" 
 MESWARN="${PURPLE}[?]${NC}${BOLD}"
 PONTUACAO="${BLUE} • ${NC}${BOLD}"
-
 SUBITEM="${BLUE} ► ${NC}${BOLD}"
+
+##VARIÁVEIS GLOBAIS
+declare -A DOMS
 
 # Função de ajuda
 show_help() {
@@ -76,6 +78,7 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
+# Função para validar usuário e imprimir dados padrões
 validate_user() {
 # Verifica se o parâmetro não está vazio
 if [[ -z "$USER" ]]; then
@@ -90,6 +93,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
 	USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}")
 	LIMIT_GB=$(awk "BEGIN {printf \"%.2f\", $LIMIT/1048576}")
+	
 	# Aqui são informações gerais do servidor que sempre vão aparecer não importa o tipo de fila definida no parâmetro
 	echo ""
 	echo -e "${MESINFO} Usuário '$USER' válido"
@@ -98,7 +102,11 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo -e "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes."
 	echo ""
 	echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
-
+	
+	# Preenche variável de vetor com domíno do usuário excluindo temporáros
+	DOMS=$(grep fuxica51 /etc/userdomains | awk -F':' '{print $1}' | egrep -iv '*\.meusitehostgator.com.br')
+	
+	# Verificando os serviços ativos/inativos do servidor
 	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
 	for SERVICE in $COMMON_SERVICES ; do
 		if systemctl is-active "$SERVICE" >/dev/null 2>&1;  then
@@ -106,15 +114,15 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 		else
 			status="Inativo - Comunique imediatemente um analista N2!"
 		fi
-		echo "Serviço: $SERVICE - Status: $status"
+		echo -e "Serviço: $SERVICE - Status: $status"
 	done
 	echo ""
 	return 0
 	else
-	echo ""
-	echo "❌ Erro: Usuário '$USER' não encontrado no sistema"
-	echo "   Verifique se o nome de usuário está correto"
-	echo ""
+		echo ""
+		echo "❌ Erro: Usuário '$USER' não encontrado no sistema"
+		echo "   Verifique se o nome de usuário está correto"
+		echo ""
 	exit 1
 fi
 
@@ -144,7 +152,7 @@ check_email() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}E-mail${NC}"
 echo -e "${SUBITEM} Listando contas de e-mail do usuário..."
-echo -e "$($PONTUACAO uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}')\n"
+echo -e "${PONTUACAO} $( uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}')\nO"
 # ...
 }
 
@@ -159,7 +167,7 @@ check_dominios() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios${NC}"
 echo -e "${SUBITEM} Verificando a validade da zona DNS..."
-
+echo -e "$()"
 echo -e "${SUBITEM} Verificando nameservers..."
 # ...
 }
