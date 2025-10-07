@@ -94,9 +94,8 @@ case $1 in
 	;;
 esac
 
-# VARIÁVEIS LOCAIS
 echo ""
-echo "=== Verificações iniciais ==="
+echo "=== Verificações iniciais ===" "${YELLOW}"
 echo "Sistema operacional $(cat /etc/redhat-release)"
 echo "A partição atual do usuário é ... numero atual de inodes em ... com limite ..."
 echo "Ip atual deste usuário é ..."
