@@ -120,9 +120,9 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 
 	echo ""
 	echo "✅ Usuário '$USER' válido"
-	echo "Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
-	echo "Com uso de disco de ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
-	echo "Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes."
+	echo "${SUBITEM}" "Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
+	echo "${SUBITEM}" "Com uso de disco de ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
+	echo "${SUBITEM}" "Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes."
 	echo ""
 	return 0
 else
