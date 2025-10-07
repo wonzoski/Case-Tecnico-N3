@@ -21,7 +21,7 @@
 ###################################################
 
 unset USER
-i
+
 # DEFINE CORES
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -39,8 +39,6 @@ show_help() {
 	echo ""
 	echo "Uso: <usuario> [OPÇÃO]"
 	echo ""
-	echo "Usuário: Usuário cPanel"
-	echo ""
 	echo "Opções:"
 	echo "  --comp, --compartilhados  Checklist para domínio Compartilhados"
 	echo "  --const, --construtores   Checklist para domínio Construtores"
@@ -54,7 +52,7 @@ show_help() {
 # Verifica se não há argumentos
 if [ $# -eq 0 ]; then
 	echo ""
-	echo "Erro: É necessário especificar um usuário e domínio"
+	echo "Erro: É necessário especificar um usuário e opção"
 	echo ""
 	show_help
 	exit 1
@@ -66,7 +64,7 @@ shift
 # Verifica se ainda há argumentos após a fila
 if [ $# -eq 0 ]; then
 	echo ""
-	echo "Erro: É necessário especificar um domínio após o usuário"
+	echo "Erro: É necessário especificar uma opção após o usuário"
 	echo ""
 	show_help
 	exit 1
