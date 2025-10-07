@@ -121,7 +121,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo ""
 	echo "✅ Usuário '$USER' válido"
 	echo -e "${SUBITEM} Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
-	echo -e "${SUBITEM} Uso de disco:i ${GREEN} ${USED_GB} ${NC}GB e limite de ${LIMIT_GB} GB" 
+	echo -e "${SUBITEM} Uso de disco:i ${GREEN}${USED_GB}${NC} GB e limite de ${LIMIT_GB} GB" 
 	echo -e "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes."
 	echo ""
 	echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
