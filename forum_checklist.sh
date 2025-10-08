@@ -97,6 +97,7 @@ fi
 
 # Verifica se o usuário existe no trueuserdomains
 if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
+	
 	# Captura informações de quota (filtra linhas que iniciam com /dev)
 	INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}' | tail -n 1)
 	read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
@@ -107,8 +108,8 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo ""
 	echo -e "${MESINFO} Usuário '$USER' válido"
 	echo -e "${SUBITEM} Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
-	echo -e "${SUBITEM} Uso de disco: ${GREEN}${USED_GB} GB$${NC} e limite de ${LIMIT_GB} GB" 
-	#echo -e "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes." NÃO DEU TEMPO
+	echo -e "${SUBITEM} Uso de disco: ${GREEN}${USED_GB} GB${NC} e limite de ${LIMIT_GB} GB" 
+	#echo -e "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes." (NÃO DEU TEMPO)
 	echo ""
 	echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 	
@@ -130,7 +131,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	return 0
 	else
 		echo ""
-		echo "❌ Erro: Usuário '$USER' não encontrado no sistema"
+		echo -e "${MESERRO}" "Erro: Usuário '$USER' não encontrado no sistema"
 		echo "   Verifique se o nome de usuário está correto"
 		echo ""
 	exit 1
