@@ -103,8 +103,9 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo ""
 	echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 	
-	# Preenche variável de vetor com domíno do usuário excluindo temporáros
-	DOMS=$(grep fuxica51 /etc/userdomains | awk -F':' '{print $1}' | egrep -iv '*\.meusitehostgator.com.br')
+	# Preenche variável de vetor com domíno/subdomínios do usuário excluindo temporáros
+	DOMS=$(ui fuxica51 -d 2>/dev/null | grep Addon: | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
+	SUBDOMS=$(ui fuxica51 -d 2>/dev/null | grep Sub: | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
 	
 	# Verificando os serviços ativos/inativos do servidor
 	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
@@ -152,7 +153,7 @@ check_email() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}E-mail${NC}"
 echo -e "${SUBITEM} Listando contas de e-mail do usuário..."
-echo -e "${PONTUACAO} $( uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}')\nO"
+echo -e "${PONTUACAO} $(uapi --user=$USER Email list_pops | egrep 'email.*@' | awk '{print $2}')\nO"
 # ...
 }
 
