@@ -109,7 +109,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	# Aqui são informações gerais do servidor que sempre vão aparecer não importa o tipo de fila definida no parâmetro
 	echo ""
 	echo -e "${MESINFO} Usuário '$USER' válido"
-	echo -e "${SUBITEM} Plano de hospedagem ${PLANO} limite ${VALOR} cota atual ${COTATUAL}"
+	echo -e "${SUBITEM} Plano de hospedagem ${PLANO} limite de disco do plano ${VALOR} e disco atual em ${COTATUAL} MB"
 	echo -e "${SUBITEM} Sistema operacional $(cat /etc/redhat-release || cat /etc/os-release)"
 	echo -e "${SUBITEM} Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
 	echo -e "${SUBITEM} Uso de disco: ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
