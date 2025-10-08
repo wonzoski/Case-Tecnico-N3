@@ -181,7 +181,7 @@ for DOM in ${DOMS} ; do
 	ZONE_FILE="/var/named/${DOM}.db"
 	#named-checkzone "$DOM" "$ZONE_FILE"
 	#if [ $? -eq '0' ]; then
-	if named-checkzone "$DOM" "$ZONE_FILE"; then
+	if named-checkzone "$DOM" "$ZONE_FILE" &>/dev/null; then
 		checagem="válida! $MESINFO"
  	else
 		checagem="inválida! $MESERRO"
