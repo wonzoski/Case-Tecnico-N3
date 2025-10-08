@@ -199,6 +199,7 @@ echo -e "${SUBITEM} Listando contas de e-mail do usuário..."
 uapi --user="$USER" Email list_pops | egrep 'email.*@' | awk '{print $2}' | while read -r email; do
     echo -e "${PONTUACAO} $email"
 done
+echo ""
 # ...
 }
 
@@ -228,7 +229,6 @@ for DOM in ${DOMS} ; do
 	fi
 	echo -e "Domínio: $DOM - Zona DNS: $checagem"
 done
-
 echo ""
 # ...
 }
