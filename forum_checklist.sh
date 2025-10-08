@@ -145,8 +145,37 @@ grep NEW /usr/local/cpanel/logs/session_log | egrep -iv "xml-api" | grep $USER |
 check_construtores() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Construtores${NC}"
-echo -e "${SUBITEM} Validando instalação de Wordpress no domíno principal..."
-if grep $USER /etc/passwd | grep -q noshell ; then cppc --jailshell $USER ; jsenabled="ENABLED" ; fi ; su $USER -c "cd public_html && wp core verify-checksums"; [[ $jsenabled ]] && cppc --disableshell $USER ; unset jsenabled
+# Função para verificar status HTTP
+check_status() {
+	local url=$1
+	local code
+	code=$(curl -o /dev/null -s -w "%{http_code}" -L --max-time 10 "http://$url")
+	echo "$code"
+}
+
+echo -e "${CYAN}${BOLD}► Verificando status dos domínios...${NC}"
+
+for DOM in $DOMS; do
+	STATUS=$(check_status "$DOM")
+	if [[ $STATUS =~ ^2|3 ]]; then
+		echo -e " • ${GREEN}$DOM${NC} → Status: ${BOLD}${STATUS}${NC}"
+	else
+		echo -e " • ${RED}$DOM${NC} → Status: ${BOLD}${STATUS}${NC}"
+	fi
+done
+
+echo -e "\n${CYAN}${BOLD}► Verificando status dos subdomínios...${NC}"
+
+for SUB in $SUBDOMS; do
+	STATUS=$(check_status "$SUB")
+	if [[ $STATUS =~ ^2|3 ]]; then
+		echo -e " • ${GREEN}$SUB${NC} → Status: ${BOLD}${STATUS}${NC}"
+	else
+		echo -e " • ${RED}$SUB${NC} → Status: ${BOLD}${STATUS}${NC}"
+	fi
+done
+
+echo -e "\n${YELLOW}${BOLD}✓ Verificação concluída.${NC}"
 # ...
 }
 
