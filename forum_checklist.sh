@@ -82,7 +82,7 @@ shift
 # Verifica se ainda há argumentos após a fila
 if [ $# -eq 0 ]; then
 	echo ""
-	echo "${MESINST}" "É necessário especificar uma opção após o usuário"
+	echo "${MESINST} É necessário especificar uma opção após o usuário"
 	show_help
 	exit 1
 fi
@@ -91,7 +91,7 @@ fi
 validate_user() {
 # Verifica se o parâmetro não está vazio
 if [[ -z "$USER" ]]; then
-	echo "${MESINST}" "Nome de usuário não pode estar vazio"
+	echo "${MESINST} Nome de usuário não pode estar vazio"
 	exit 1
 fi
 
