@@ -146,7 +146,7 @@ check_construtores() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Construtores${NC}"
 echo -e "${SUBITEM} Validando instalação de Wordpress no domíno principal..."
-if grep $USER /etc/passwd | grep -q noshell ; then cppc --jailshell $USER ; jsenabled="ENABLED" ; fi ; su $USER -c "cd public_html && wp core verify-checksums"; [[ $jsenabled ]] && cppc --disableshell $USER ; unset jsenabled
+if grep $USER /etc/passwd | grep -q noshell ; then cppc --jailshell $USER ; jsenabled="ENABLED" ; fi ; su $USER -c "cd ~public_html && wp core verify-checksums"; [[ $jsenabled ]] && cppc --disableshell $USER ; unset jsenabled
 # ...
 }
 
