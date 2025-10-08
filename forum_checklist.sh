@@ -24,9 +24,7 @@ if [[ $(hostname) =~ .*hostgator* ]] || [[ $(hostname) =~ .*prodns*  ]] && [[ -e
 	: # Ambiente HostGator - continua execução normal
 else
 	echo ""
-	echo -e "${RED}❌ ERRO: Este script deve ser executado apenas em ambientes HostGator${NC}"
-	echo "   Hostname atual: $(hostname)"
-	echo "   Arquivo /opt/hgctrl/.zengator não encontrado"
+	echo -e "${RED} Este script deve ser executado apenas em ambientes HostGator${NC}"
 	echo ""
 exit 1
 fi
