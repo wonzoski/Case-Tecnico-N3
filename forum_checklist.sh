@@ -43,6 +43,7 @@ SUBITEM="${BLUE} ► ${NC}${BOLD}"
 
 ##VARIÁVEIS GLOBAIS
 declare -A DOMS
+declare -A SUBDOMS
 
 # Função de ajuda
 show_help() {
@@ -168,6 +169,11 @@ check_dominios() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios${NC}"
 echo -e "${SUBITEM} Verificando a validade da zona DNS..."
+
+for DOM in ${DOMS} ; do
+	ZONE_FILE="/var/named/${DOM}.db"
+	named-checkzone "$DOM" "$ZONE_FILE"
+done
 
 echo -e "${DOMS}"
 echo -e "${SUBITEM} Verificando nameservers..."
