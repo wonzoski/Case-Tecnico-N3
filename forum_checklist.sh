@@ -259,7 +259,8 @@ case $1 in
 		exit 0
 		;;
 	*)
-		echo -e "${MESERRO} Parâmetro '$1' inválido"
+		echo ""
+		echo -e "${MESINST} Parâmetro '$1' inválido"
 		show_help
 		exit 1
 		;;
