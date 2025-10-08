@@ -20,15 +20,6 @@
 #
 ###################################################
 unset USER
-if [[ $(hostname) =~ .*hostgator* ]] || [[ $(hostname) =~ .*prodns*  ]] && [[ -e /opt/hgctrl/.zengator ]]; then
-	: # Ambiente HostGator - continua execução normal
-else
-	echo ""
-	echo -e "${RED} Este script deve ser executado apenas em ambientes HostGator${NC}"
-	echo ""
-exit 1
-fi
-
 
 ##DEFINE CORES
 BOLD='\033[1m'
@@ -48,6 +39,16 @@ MESINST="${YELLOW}[!]${NC}${BOLD}"
 MESWARN="${PURPLE}[?]${NC}${BOLD}"
 PONTUACAO="${BLUE} • ${NC}${BOLD}"
 SUBITEM="${BLUE} ► ${NC}${BOLD}"
+
+#VERIFICA O SERVIDOR
+if [[ $(hostname) =~ .*hostgator* ]] || [[ $(hostname) =~ .*prodns*  ]] && [[ -e /opt/hgctrl/.zengator ]]; then
+        : # Ambiente HostGator - continua execução normal
+else
+	echo ""
+	echo -e "${RED} Este script deve ser executado apenas em ambientes HostGator${NC}"
+	echo ""
+exit 1
+fi
 
 ##VARIÁVEIS GLOBAIS
 declare -A DOMS
