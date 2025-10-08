@@ -104,8 +104,8 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	IPCPAN=$(ui fuxica51 -d 2>/dev/null | grep IP: | awk '{print $2}')
 	INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}' | tail -n 1)
 	read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
-	#USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}")
-	#LIMIT_GB=$(awk "BEGIN {printf \"%.2f\", $LIMIT/1048576}")
+	#USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}") (SUBSTITUIDO PELO WHMAPI1)
+	#LIMIT_GB=$(awk "BEGIN {printf \"%.2f\", $LIMIT/1048576}") (SUBSTITUIDO PELO WHMAPI1)
 	
 	# Aqui são informações gerais do servidor que sempre vão aparecer não importa o tipo de fila definida no parâmetro
 	echo ""
@@ -114,16 +114,16 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo -e "${SUBITEM} IP do cPanel ${IPCPAN}"
 	echo -e "${SUBITEM} Sistema operacional $(cat /etc/redhat-release || cat /etc/os-release)"
 	echo -e "${SUBITEM} Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
-	#echo -e "${SUBITEM} Uso de disco: ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
-	#echo -e "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes." (NÃO DEU TEMPO)
+	#echo -e "${SUBITEM} Uso de disco: ${USED_GB} GB e limite de ${LIMIT_GB} GB" (Desuso)
+	#echo -e "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes." (NÃO DEU TEMPO - ideia era listar inodes e limite do usuário)
 	echo ""
 	echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 	
-	# Preenche variável de vetor com domíno do usuário excluindo temporáros
+	# Preenche variável de vetor com domíno do usuário excluindo temporáros. (PLANEJADO PARA FAZER TRATATIVA DE TEMPORÁRIOS TAMBÉM PORÉM NÃO DEU TEMPO)
 	DOMS=$(ui ${USER} -d 2>/dev/null | egrep 'Addon:|U. Domain:' | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
 	SUBDOMS=$(ui ${USER} -d 2>/dev/null | grep Sub: | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
 	
-	# Verificando os serviços ativos/inativos do servidor
+	# Verificando os principais serviços ativos/inativos do servidor
 	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
 	for SERVICE in $COMMON_SERVICES ; do
 		if systemctl is-active "$SERVICE" >/dev/null 2>&1;  then
@@ -148,7 +148,8 @@ fi
 # Validação do usuário
 #validate_user "$USER"
 
-# Função principal para cada setor
+# Função principal para cada fila (compartilhados - construtores - email - domínio)
+# Ideia aqui era fazer várias funcionalidades 
 check_compartilhados() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios Compartilhados${NC}"
