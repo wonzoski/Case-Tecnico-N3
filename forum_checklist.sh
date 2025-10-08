@@ -122,7 +122,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	SUBDOMS=$(ui ${USER} -d 2>/dev/null | grep Sub: | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
 	
 	# Verificando os serviços ativos/inativos do servidor
-	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
+	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot cphulkd"
 	for SERVICE in $COMMON_SERVICES ; do
 		if systemctl is-active "$SERVICE" >/dev/null 2>&1;  then
 			status="${MESINFO} Ativo"
