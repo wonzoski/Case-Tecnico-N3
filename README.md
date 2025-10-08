@@ -94,6 +94,8 @@ bash <(curl -sSL "https://raw.githubusercontent.com/wonzoski/Case-Tecnico-N3/mai
 * ✅ Exclusivo para servidores compartilhados na HostGator
 * ✅ Requer `/opt/hgctrl/.zengator` presente
 * ❌ Não executa em ambientes não-HostGator
+* ❌ Não possúi uma versão em espanhol
+* ❌ Não executa verificações para fila de especializado
 
 ### Dependências
 
