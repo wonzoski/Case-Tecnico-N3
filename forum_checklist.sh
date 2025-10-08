@@ -138,7 +138,7 @@ check_compartilhados() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios Compartilhados${NC}"
 echo -e "${SUBITEM} Verificando limites de e-mails..."
-/usr/local/cpanel/bin/autossl_check --user=$USER
+grep NEW /usr/local/cpanel/logs/session_log | egrep -iv "xml-api" | grep $USER | awk -F':' '{print $1":" $2":" $3}' | grep -iv @
 # ...
 }
 
