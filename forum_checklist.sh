@@ -149,6 +149,7 @@ echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios Compartilhados${NC}"
 echo -e "${SUBITEM} Retornando os últimos 10 acessos do cPanel..."
 grep NEW /usr/local/cpanel/logs/session_log | egrep -iv "xml-api" | grep $USER | awk -F':' '{print $1":" $2":" $3}' | grep -iv '@' | tail -n 10
+echo ""
 # ...
 }
 
@@ -186,6 +187,7 @@ for SUB in $SUBDOMS; do
 done
 
 echo -e "\n${YELLOW}${BOLD}✓ Verificação concluída.${NC}"
+echo ""
 # ...
 }
 
