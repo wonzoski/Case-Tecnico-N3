@@ -97,8 +97,10 @@ fi
 
 # Verifica se o usuário existe no trueuserdomains
 if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
-	
-	# Captura informações de quota (filtra linhas que iniciam com /dev)
+	PLANO=$(whmapi1 accountsummary user=$USER | grep plan | awk -F":" '{print $2}' | sed 's/^[ \t]*//')
+	VALOR=$(whmapi1 getpkginfo pkg="$PLANO" | egrep '^    QUOTA' | awk '{print $2}')
+	COTATUAL=$(whmapi1 accountsummary user=$USER | grep disklimit | awk '{print $2}' | tr -d 'M')
+
 	INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}' | tail -n 1)
 	read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
 	USED_GB=$(awk "BEGIN {printf \"%.2f\", $USED/1048576}")
@@ -107,7 +109,8 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	# Aqui são informações gerais do servidor que sempre vão aparecer não importa o tipo de fila definida no parâmetro
 	echo ""
 	echo -e "${MESINFO} Usuário '$USER' válido"
-	echo -e "${SUBITEM} Sistema operacional: $(cat /etc/redhat-release || cat /etc/os-release)"
+	echo -e "${SUBITEM} Plano de hospedagem ${PLANO} limite ${VALOR} cota atual ${COTATUAL}"
+	echo -e "${SUBITEM} Sistema operacional $(cat /etc/redhat-release || cat /etc/os-release)"
 	echo -e "${SUBITEM} Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
 	echo -e "${SUBITEM} Uso de disco: ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
 	#echo -e "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes." (NÃO DEU TEMPO)
