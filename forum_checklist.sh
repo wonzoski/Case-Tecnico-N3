@@ -100,7 +100,7 @@ fi
 if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	PLANO=$(whmapi1 accountsummary user="$USER" | grep plan | awk -F":" '{print $2}' | sed 's/^[ \t]*//')
 	VALOR=$(whmapi1 getpkginfo pkg="$PLANO" | egrep '^    QUOTA' | awk '{print $2}')
-	COTATUAL=$(whmapi1 accountsummary user="$USER" | grep disklimit | awk '{print $2}' | tr -d 'M')
+	COTATUAL=$(whmapi1 accountsummary user="$USER" | grep diskused | awk '{print $2}' | tr -d 'M')
 	IPCPAN=$(ui fuxica51 -d 2>/dev/null | grep IP: | awk '{print $2}')
 	INFO=$(quota -u "$USER" | awk '/^[[:space:]]*\/dev\// {print $1, $2, $3, $4, $6, $7, $8}' | tail -n 1)
 	read PART USED QUOTA LIMIT FILES FQUOTA FLIMIT <<< "$INFO"
