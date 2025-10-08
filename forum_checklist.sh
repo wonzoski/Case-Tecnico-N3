@@ -173,8 +173,15 @@ echo -e "${SUBITEM} Verificando a validade da zona DNS..."
 for DOM in ${DOMS} ; do
 	ZONE_FILE="/var/named/${DOM}.db"
 	named-checkzone "$DOM" "$ZONE_FILE"
+	if [ $? -eq '0' ]; then
+		checagem="válida! $MESINFO"
+ 	else
+		checagem="inválida! $MESERRO"
+	fi
+	echo -e "Domínio: $DOM - Zona DNS: $checagem"
 done
 
+echo ""
 echo -e "${DOMS}"
 echo -e "${SUBITEM} Verificando nameservers..."
 # ...
