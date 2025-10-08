@@ -19,7 +19,6 @@
 # Script to do a checklist
 #
 ###################################################
-
 unset USER
 
 ##DEFINE CORES
