@@ -82,7 +82,7 @@ shift
 # Verifica se ainda há argumentos após a fila
 if [ $# -eq 0 ]; then
 	echo ""
-	echo "Erro: É necessário especificar uma opção após o usuário"
+	echo "${MESINST}" "É necessário especificar uma opção após o usuário"
 	show_help
 	exit 1
 fi
@@ -91,7 +91,7 @@ fi
 validate_user() {
 # Verifica se o parâmetro não está vazio
 if [[ -z "$USER" ]]; then
-	echo "❌ Erro: Nome de usuário não pode estar vazio"
+	echo "${MESINST}" "Nome de usuário não pode estar vazio"
 	exit 1
 fi
 
@@ -107,6 +107,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	# Aqui são informações gerais do servidor que sempre vão aparecer não importa o tipo de fila definida no parâmetro
 	echo ""
 	echo -e "${MESINFO} Usuário '$USER' válido"
+	echo -e "$(cat /etc/redhat-release || cat /etc/os-release)"
 	echo -e "${SUBITEM} Partição atual do usuário: ${PART} atualmente com $(df -h | grep ${PART} | awk '{print $5}') de uso"
 	echo -e "${SUBITEM} Uso de disco: ${USED_GB} GB e limite de ${LIMIT_GB} GB" 
 	#echo -e "${SUBITEM} Utilizando ${FILES} inodes com limite de ${FLIMIT} inodes." (NÃO DEU TEMPO)
@@ -123,7 +124,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 		if systemctl is-active "$SERVICE" >/dev/null 2>&1;  then
 			status="${MESINFO} Ativo"
 		else
-			status="Inativo - Comunique imediatemente um analista N2!"
+			status="${MESERRO} Inativo - Comunique imediatemente um analista N2!"
 		fi
 		echo -e "Serviço: $SERVICE - Status: $status"
 	done
@@ -131,7 +132,7 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	return 0
 	else
 		echo ""
-		echo -e "${MESERRO}" "Erro: Usuário '$USER' não encontrado no sistema"
+		echo -e "${MESINST}" "Erro: Usuário '$USER' não encontrado no sistema"
 		echo "   Verifique se o nome de usuário está correto"
 		echo ""
 	exit 1
