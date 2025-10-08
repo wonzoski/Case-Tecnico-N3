@@ -138,8 +138,7 @@ check_compartilhados() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios Compartilhados${NC}"
 echo -e "${SUBITEM} Verificando limites de e-mails..."
-# (comandos específicos aqui)
-echo -e "${SUBITEM} Verificando pacotes de hospedagem..."
+/usr/local/cpanel/bin/autossl_check --user=$USER
 # ...
 }
 
