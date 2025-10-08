@@ -1,7 +1,7 @@
 # Case-Tecnico-N3
 Repositório referente a criação de script para desafio técnico de N3
 
-# 🧩 Checklist Script - HostGator
+# Checklist Script - HostGator
 
 Script de **checklist técnico** para análise e diagnóstico de contas.
 Desenvolvido para auxiliar equipes de suporte e monitoramento em verificações rápidas de contas cPanel.
