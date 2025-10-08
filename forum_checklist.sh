@@ -63,7 +63,7 @@ show_help() {
 # Verifica se não há argumentos
 if [ $# -eq 0 ]; then
 	echo ""
-	echo "Erro: É necessário especificar um usuário e opção"
+	echo -e "${MESINST}" "É necessário especificar um usuário e opção"
 	show_help
 	exit 1
 fi
