@@ -171,8 +171,11 @@ echo -e "${SUBITEM} Validando recursos dedicados..."
 check_dominios() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios${NC}"
+echo -e "${SUBITEM} Listando os domínios..."
+echo -e "${DOMS}" "\n"
+echo -e "${SUBITEM} Listando os subdomínios..."
+echo -e "${SUBDOMS}" "\n"
 echo -e "${SUBITEM} Verificando a validade da zona DNS..."
-
 for DOM in ${DOMS} ; do
 	ZONE_FILE="/var/named/${DOM}.db"
 	#named-checkzone "$DOM" "$ZONE_FILE"
@@ -186,8 +189,6 @@ for DOM in ${DOMS} ; do
 done
 
 echo ""
-echo -e "${DOMS}"
-echo -e "${SUBITEM} Verificando nameservers..."
 # ...
 }
 
