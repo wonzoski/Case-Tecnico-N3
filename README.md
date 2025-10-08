@@ -133,12 +133,10 @@ bash <(curl -sSL "https://raw.githubusercontent.com/wonzoski/Case-Tecnico-N3/mai
 ## Informações de Desenvolvimento
 
 * **Versão:** 1.0
-* **Última atualização:** 06/10/2025
+* **Última atualização:** 08/10/2025
 * **Autor:** [Fabrício Wonzoski](https://github.com/wonzoski) — *N2 Advanced Support*
 * **Compatibilidade:** Linux / cPanel / HostGator
 
 > **Uso restrito:** Este script é destinado exclusivamente à equipe técnica em ambientes autorizados.
 
 ---
-
-Quer que eu adicione também um **bloco de badges** no topo (ex: “Shell Script”, “cPanel”, “HostGator Only”, “v1.0”, “Last Updated”) para deixar mais profissional e visual tipo GitHub Pro?
