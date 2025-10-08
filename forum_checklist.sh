@@ -82,7 +82,7 @@ shift
 # Verifica se ainda há argumentos após a fila
 if [ $# -eq 0 ]; then
 	echo ""
-	echo "${MESINST} É necessário especificar uma opção após o usuário"
+	echo -e "${MESINST} É necessário especificar uma opção após o usuário"
 	show_help
 	exit 1
 fi
@@ -150,7 +150,7 @@ fi
 check_compartilhados() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios Compartilhados${NC}"
-echo -e "${SUBITEM} Retornando os últimos 10 acessos do cPanel..."
+echo -e "${SUBITEM} Retornando os últimos 10 acessos no cPanel..."
 grep NEW /usr/local/cpanel/logs/session_log | egrep -iv "xml-api" | grep $USER | awk -F':' '{print $1":" $2":" $3}' | grep -iv '@' | tail -n 10
 echo ""
 # ...
