@@ -103,9 +103,9 @@ if awk '{print $2}' /etc/trueuserdomains | grep -qw "$USER"; then
 	echo ""
 	echo "=== VERIFICAÇÃO DE SERVIÇOS COMUNS ==="
 	
-	# Preenche variável de vetor com domíno/subdomínios do usuário excluindo temporáros
-	DOMS=$(ui fuxica51 -d 2>/dev/null | grep Addon: | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
-	SUBDOMS=$(ui fuxica51 -d 2>/dev/null | grep Sub: | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
+	# Preenche variável de vetor com domíno do usuário excluindo temporáros
+	DOMS=$(ui ${USER} -d 2>/dev/null | egrep 'Addon:|U. Domain:' | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
+	SUBDOMS=$(ui ${USER} -d 2>/dev/null | grep Sub: | awk -F':' '{print $2}' | egrep -iv '*\.meusitehostgator.com.br')
 	
 	# Verificando os serviços ativos/inativos do servidor
 	COMMON_SERVICES="httpd mysqld cpanel pure-ftpd sshd exim dovecot"
@@ -168,6 +168,7 @@ check_dominios() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Domínios${NC}"
 echo -e "${SUBITEM} Verificando a validade da zona DNS..."
+
 echo -e "${DOMS}"
 echo -e "${SUBITEM} Verificando nameservers..."
 # ...
