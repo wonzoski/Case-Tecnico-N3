@@ -54,7 +54,7 @@ show_help() {
 	echo "  --comp|--compartilhados  Checklist para domínio Compartilhados"
 	echo "  --const|--construtores   Checklist para domínio Construtores"
 	echo "  --mail|--email           Checklist para domínio E-mail"
-	echo "  --esp|--especializado    Checklist para domínio Especializado"
+#	echo "  --esp|--especializado    Checklist para domínio Especializado"
 	echo "  --dom|--dominios         Checklist para domínio Domínios"
 	echo "  -h|--help                Mostra esta ajuda"
 	echo ""
@@ -146,7 +146,7 @@ check_construtores() {
 echo ""
 echo -e "${MESINFO} Iniciando checklist para ${CYAN}Construtores${NC}"
 echo -e "${SUBITEM} Validando instalação de Wordpress no domíno principal..."
-if grep $USER /etc/passwd | grep -q noshell ; then cppc --jailshell $USER ; jsenabled="ENABLED" ; fi ; su $USER -c "cd ~public_html && wp core verify-checksums"; [[ $jsenabled ]] && cppc --disableshell $USER ; unset jsenabled
+if grep $USER /etc/passwd | grep -q noshell ; then cppc --jailshell $USER ; jsenabled="ENABLED" ; fi ; su $USER -c "cd public_html && wp core verify-checksums"; [[ $jsenabled ]] && cppc --disableshell $USER ; unset jsenabled
 # ...
 }
 
@@ -161,12 +161,12 @@ done
 # ...
 }
 
-check_especializado() {
-echo ""
-echo -e "${MESINFO} Iniciando checklist para ${CYAN}Servidores Especializados${NC}"
-echo -e "${SUBITEM} Validando recursos dedicados..."
+#check_especializado() {
+#echo ""
+#echo -e "${MESINFO} Iniciando checklist para ${CYAN}Servidores Especializados${NC}"
+#echo -e "${SUBITEM} Validando recursos dedicados..."
 # ...
-}
+#}
 
 check_dominios() {
 echo ""
@@ -205,10 +205,10 @@ case $1 in
 		fila="email"
 		validate_user "$USER" && check_email
 		;;
-	--esp|--especializado)
-		fila="especializado"
-		validate_user "$USER" && check_especializado
-		;;
+#	--esp|--especializado)
+#		fila="especializado"
+#		validate_user "$USER" && check_especializado
+#		;;
 	--dom|--dominios)
 		fila="dominios"
 		validate_user "$USER" && check_dominios
